@@ -18,7 +18,6 @@ namespace BuyTickets.Storages
 
         public DbSet<Purchase> Purchases => Set<Purchase>();
 
-
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer("Server = localhost; Database = BuyTicketsDb; Trusted_Connection = True; TrustServerCertificate = Yes");
@@ -26,6 +25,25 @@ namespace BuyTickets.Storages
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Ticket>(entity => 
+            {
+                entity.Property(e => e.Id).ValueGeneratedNever();
+                entity.Property(s => s.IsSelling);
+            });
+            
+            modelBuilder.Entity<Buyer>(entity =>
+            {
+                entity.Property(e => e.Id).ValueGeneratedNever();
+                entity.Property(e => e.Name).HasMaxLength(35);
+            });
+            
+            modelBuilder.Entity<Purchase>(entity =>
+            {
+                entity.HasKey(e => e.Id).HasName("PK_Purchase");
+                entity.Property(e => e.Id).ValueGeneratedNever();
+            });
+            
+            OnModelCreatingPartial(modelBuilder);
 
         }
 
