@@ -24,5 +24,5 @@ BuyTickets - PET проект, программное обеспечение д�
     - [X] NET 5.0
     - [X] C# 9.0
     - [X] LINQ
-    - [X] Entity Framework
+    - [X] Entity Framework Core
     - [X] MS SQL
